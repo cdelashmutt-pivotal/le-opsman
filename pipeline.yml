@@ -3,14 +3,15 @@ resources:
 - name: version
   type: semver
   source:
-    initial_version: 0
+    initial_version: 0.0.0
     driver: s3
     endpoint: ((s3-endpoint))
-    bucket: ((s3-endpoint))
+    bucket: ((s3-bucket))
     key: version
     access_key_id: ((s3-access-key))
     secret_access_key: ((s3-secret-key))
     disable_ssl: true
+#    use_v2_signing: true
 
 - name: le-opsman
   type: git
@@ -34,9 +35,34 @@ jobs:
     params:
       bump: major
   - task: le-retrieve
-    file: le-opsman/tasks/le-retrieve.yml
+    config:
+      platform: linux
+      
+      image_resource:
+        type: docker-image
+        source:
+          repository: neilpang/acme.sh
+          tag: latest
+      
+      inputs:
+      - name: le-opsman
+      - name: version
+        path: input-version
+      
+      outputs:
+      - name: crypto-materials
+      - name: version
+        
+      run:
+        path: ./le-opsman/tasks/le-retrieve.sh
+      
+      params:
+        GD_Key:
+        GD_Secret:
     params:
       GD_Key: ((gd-key))
       GD_Secret: ((gd-secret))
   - put: crypto-material
   - put: version
+    params:
+      file: version/version
