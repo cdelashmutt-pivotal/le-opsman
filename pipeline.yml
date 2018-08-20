@@ -1,5 +1,17 @@
 ---
 resources:
+- name: version
+  type: semver
+  source:
+    initial_version: 0
+    driver: s3
+    endpoint: ((s3-endpoint))
+    bucket: ((s3-endpoint))
+    key: version
+    access_key_id: ((s3-access-key))
+    secret_access_key: ((s3-secret-key))
+    disable_ssl: true
+
 - name: le-opsman
   type: git
   source:
@@ -11,13 +23,20 @@ resources:
     bucket: ((s3-bucket))
     access_key_id: ((s3-access-key))
     secret_access_key: ((s3-secret-key))
+    disable_ssl: true
+    regexp: crypto-(.*).tgz
 
 jobs:
 - name: le-retrieve
   plan:
   - get: le-opsman
+  - get: semver
+    params:
+      bump: major
   - task: le-retrieve
     file: le-opsman/tasks/le-retrieve.yml
-  - put: crypto-material
     params:
-      file: ./crypto-material/crypto.tgz
+      GD_Key: ((gd-key))
+      GD_Secret: ((gd-secret))
+  - put: crypto-material
+  - put: semver
