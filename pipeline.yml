@@ -17,7 +17,7 @@ jobs:
   plan:
   - get: le-opsman
   - task: le-retrieve
-    file: tasks/le-retrieve.yml
+    file: le-opsman/tasks/le-retrieve.yml
   - put: crypto-material
     params:
       file: ./crypto-material/crypto.tgz
