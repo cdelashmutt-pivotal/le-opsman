@@ -9,11 +9,11 @@ image_resource:
 
 inputs:
 - name: le-opsman 
-- name: semver
+- name: version
 
 outputs:
 - name: crypto-materials
-- name: semver
+- name: version
 run:
   path: ./le-opsman/tasks/le-retrieve.sh
 

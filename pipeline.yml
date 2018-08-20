@@ -30,7 +30,7 @@ jobs:
 - name: le-retrieve
   plan:
   - get: le-opsman
-  - get: semver
+  - get: version
     params:
       bump: major
   - task: le-retrieve
@@ -39,4 +39,4 @@ jobs:
       GD_Key: ((gd-key))
       GD_Secret: ((gd-secret))
   - put: crypto-material
-  - put: semver
+  - put: version
