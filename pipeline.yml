@@ -11,7 +11,6 @@ resources:
     access_key_id: ((s3-access-key))
     secret_access_key: ((s3-secret-key))
     disable_ssl: true
-#    use_v2_signing: true
 
 - name: le-opsman
   type: git
@@ -50,7 +49,7 @@ jobs:
         path: input-version
       
       outputs:
-      - name: crypto-materials
+      - name: crypto-material
       - name: version
         
       run:
@@ -63,6 +62,8 @@ jobs:
       GD_Key: ((gd-key))
       GD_Secret: ((gd-secret))
   - put: crypto-material
+    params:
+      file: crypto-material/crypto-*.tgz
   - put: version
     params:
       file: version/version
