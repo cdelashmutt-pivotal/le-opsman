@@ -1,0 +1,23 @@
+---
+resources:
+- name: le-opsman
+  type: git
+  source:
+    uri: https://github.com/cdelashmutt-pivotal/le-opsman
+- name: crypto-material
+  type: s3
+  source:
+    endpoint: ((s3-endpoint))
+    bucket: ((s3-bucket))
+    access_key_id: ((s3-access-key))
+    secret_access_key: ((s3-secret-key))
+
+jobs:
+- name: le-retrieve
+  plan:
+  - get: le-opsman
+  - task: le-retrieve
+    file: tasks/le-retrieve.yml
+  - put: crypto-material
+    params:
+      file: ./crypto-material/crypto.tgz
