@@ -2,7 +2,6 @@
 set -e
 
 cd ./crypto-material
-tar xzvf crypto-*.tgz
 
 CERT=$(cat fullchain.pem)
 KEY=$(cat key.pem)

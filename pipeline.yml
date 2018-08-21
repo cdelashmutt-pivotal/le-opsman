@@ -1,38 +1,14 @@
 ---
 resources:
-- name: version
-  type: semver
-  source:
-    initial_version: 0.0.0
-    driver: s3
-    endpoint: ((s3-endpoint))
-    bucket: ((s3-bucket))
-    key: version
-    access_key_id: ((s3-access-key))
-    secret_access_key: ((s3-secret-key))
-    disable_ssl: true
-
 - name: le-opsman
   type: git
   source:
     uri: https://github.com/cdelashmutt-pivotal/le-opsman
-- name: crypto-material
-  type: s3
-  source:
-    endpoint: ((s3-endpoint))
-    bucket: ((s3-bucket))
-    access_key_id: ((s3-access-key))
-    secret_access_key: ((s3-secret-key))
-    disable_ssl: true
-    regexp: crypto-(.*).tgz
 
 jobs:
 - name: le-retrieve
   plan:
   - get: le-opsman
-  - get: version
-    params:
-      bump: major
   - task: le-retrieve
     config:
       platform: linux
@@ -45,12 +21,9 @@ jobs:
       
       inputs:
       - name: le-opsman
-      - name: version
-        path: input-version
       
       outputs:
       - name: crypto-material
-      - name: version
         
       run:
         path: ./le-opsman/tasks/le-retrieve.sh
@@ -61,16 +34,8 @@ jobs:
     params:
       GD_Key: ((gd-key))
       GD_Secret: ((gd-secret))
-  - put: crypto-material
-    params:
-      file: crypto-material/crypto-*.tgz
-  - put: version
-    params:
-      file: input-version/version
 - name: apply-crypto-materials
   plan:
-  - get: le-opsman
-  - get: crypto-material
   - task: upload-material
     config:
       platform: linux
