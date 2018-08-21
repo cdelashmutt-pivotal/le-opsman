@@ -73,7 +73,7 @@ jobs:
   - task: upload-material
     config:
       platform: linux
-      image-resource:
+      image_resource:
         type: docker-image
         source:
           repository: cdelashmutt/cf-automatuer
