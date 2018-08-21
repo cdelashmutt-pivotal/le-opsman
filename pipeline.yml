@@ -75,7 +75,8 @@ jobs:
       platform: linux
       image-resource:
         type: docker-image
-          source: cdelashmutt/cf-automatuer
+        source:
+          repository: cdelashmutt/cf-automatuer
           tag: latest
       inputs:
       - name: crypto-material
