@@ -66,4 +66,27 @@ jobs:
       file: crypto-material/crypto-*.tgz
   - put: version
     params:
-      file: version/version
+      file: input-version/version
+- name: apply-crypto-materials
+  plan:
+  - get: crypto-material
+  - task: upload-material
+    config:
+      platform: linux
+      image-resource:
+        type: docker-image
+          source: cdelashmutt/cf-automatuer
+          tag: latest
+      inputs:
+      - name: crypto-material
+      - name: le-opsman
+      run:
+        path: ./le-opsman/tasks/set-crypto-materials.sh
+      params:
+        OPSMAN_HOST:
+        OPSMAN_USER:
+        OPSMAN_PASSWORD:
+    params:
+      OPSMAN_HOST: ((opsman-host))
+      OPSMAN_USER: ((opsman-user))
+      OPSMAN_PASSWORD: ((opsman-password))
