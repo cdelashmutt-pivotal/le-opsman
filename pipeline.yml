@@ -5,9 +5,15 @@ resources:
   source:
     uri: https://github.com/cdelashmutt-pivotal/le-opsman
 
+- name: 1w
+  type: time
+  source: {interval: 168h}
+
 jobs:
 - name: le-retrieve
   plan:
+  - get: 1w
+    trigger: true
   - get: le-opsman
   - task: le-retrieve
     config:
@@ -29,13 +35,8 @@ jobs:
         path: ./le-opsman/tasks/le-retrieve.sh
       
       params:
-        GD_Key:
-        GD_Secret:
-    params:
-      GD_Key: ((gd-key))
-      GD_Secret: ((gd-secret))
-- name: apply-crypto-materials
-  plan:
+        GD_Key: ((gd-key))
+        GD_Secret: ((gd-secret))
   - task: upload-material
     config:
       platform: linux
@@ -50,10 +51,6 @@ jobs:
       run:
         path: ./le-opsman/tasks/set-crypto-materials.sh
       params:
-        OPSMAN_HOST:
-        OPSMAN_USER:
-        OPSMAN_PASSWORD:
-    params:
-      OPSMAN_HOST: ((opsman-host))
-      OPSMAN_USER: ((opsman-user))
-      OPSMAN_PASSWORD: ((opsman-password))
+        OPSMAN_HOST: ((opsman-host))
+        OPSMAN_USER: ((opsman-user))
+        OPSMAN_PASSWORD: ((opsman-password))
