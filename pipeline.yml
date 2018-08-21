@@ -69,6 +69,7 @@ jobs:
       file: input-version/version
 - name: apply-crypto-materials
   plan:
+  - get: le-opsman
   - get: crypto-material
   - task: upload-material
     config:
