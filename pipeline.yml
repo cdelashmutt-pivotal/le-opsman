@@ -16,7 +16,7 @@ jobs:
     trigger: true
   - get: le-opsman
   - task: le-retrieve
-    file: le-opsman/tasks/le-retreive.yml  
+    file: le-opsman/tasks/le-retrieve.yml  
     params:
       GD_Key: ((gd-key))
       GD_Secret: ((gd-secret))
