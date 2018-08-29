@@ -16,41 +16,13 @@ jobs:
     trigger: true
   - get: le-opsman
   - task: le-retrieve
-    config:
-      platform: linux
-      
-      image_resource:
-        type: docker-image
-        source:
-          repository: neilpang/acme.sh
-          tag: latest
-      
-      inputs:
-      - name: le-opsman
-      
-      outputs:
-      - name: crypto-material
-        
-      run:
-        path: ./le-opsman/tasks/le-retrieve.sh
-      
-      params:
-        GD_Key: ((gd-key))
-        GD_Secret: ((gd-secret))
+    file: le-opsman/tasks/le-retreive.yml  
+    params:
+      GD_Key: ((gd-key))
+      GD_Secret: ((gd-secret))
   - task: upload-material
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source:
-          repository: cdelashmutt/cf-automatuer
-          tag: latest
-      inputs:
-      - name: crypto-material
-      - name: le-opsman
-      run:
-        path: ./le-opsman/tasks/set-crypto-materials.sh
-      params:
-        OPSMAN_HOST: ((opsman-host))
-        OPSMAN_USER: ((opsman-user))
-        OPSMAN_PASSWORD: ((opsman-password))
+    file: le-opsman/tasks/upload-material.yml
+    params:
+      OPSMAN_HOST: ((opsman-host))
+      OPSMAN_USER: ((opsman-user))
+      OPSMAN_PASSWORD: ((opsman-password))
