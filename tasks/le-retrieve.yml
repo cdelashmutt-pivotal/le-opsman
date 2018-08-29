@@ -1,0 +1,21 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: neilpang/acme.sh
+    tag: latest
+
+inputs:
+- name: le-opsman
+
+outputs:
+- name: crypto-material
+
+run:
+  path: ./le-opsman/tasks/le-retrieve.sh
+
+params:
+  GD_Key: 
+  GD_Secret: 

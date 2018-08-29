@@ -1,0 +1,19 @@
+---
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: cdelashmutt/cf-automatuer
+    tag: latest
+
+inputs:
+- name: crypto-material
+- name: le-opsman
+
+run:
+  path: ./le-opsman/tasks/set-crypto-material.sh
+
+params:
+  OPSMAN_HOST:
+  OPSMAN_USER: 
+  OPSMAN_PASSWORD: 
