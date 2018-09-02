@@ -1,0 +1,8 @@
+# GoDaddy api key and secret for domain verification
+gd-key: some-random-charaters
+gd-secret: more-random-characters
+
+#Operations Manager coordinates and credentials
+opsman-host: opsmanager.my.domain.com
+opsman-user: aUser
+opsman-password: secret-passw0rd
