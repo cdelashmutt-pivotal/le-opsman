@@ -11,10 +11,10 @@ product-name: cf
 product-properties:
   .properties.networking_poe_ssl_certs:
     value:
-    - certificate:
+    - name: default
+      certificate:
         cert_pem: "$CERT"
         private_key_pem: "$KEY"
-        name: default
 EOF
 
-om -t $OPSMAN_HOST -u $OPSMAN_USER -p $OPSMAN_PASSWORD config-product -c cert.cfg
+om -t $OPSMAN_HOST -u $OPSMAN_USER -p $OPSMAN_PASSWORD configure-product -c cert.cfg
