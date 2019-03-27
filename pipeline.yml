@@ -10,7 +10,7 @@ resources:
   source: {interval: 168h}
 
 jobs:
-- name: le-retrieve
+- name: get-opsman-cert
   plan:
   - get: 1w
     trigger: true
@@ -22,6 +22,22 @@ jobs:
       GD_Secret: ((gd-secret))
   - task: upload-material
     file: le-opsman/tasks/upload-material.yml
+    params:
+      OPSMAN_HOST: ((opsman-host))
+      OPSMAN_USER: ((opsman-user))
+      OPSMAN_PASSWORD: ((opsman-password))
+- name: set-cf-haproxy-cert
+  plan:
+  - get: 1w
+    trigger: true
+  - get: le-opsman
+  - task: le-retrieve-cf
+    file: le-opsman/tasks/le-retrieve-cf.yml
+    params:
+      GD_Key: ((gd-key))
+      GD_Secret: ((gd-secret))
+  - task: upload-material
+    file: le-opsman/tasks/upload-material-cf.yml
     params:
       OPSMAN_HOST: ((opsman-host))
       OPSMAN_USER: ((opsman-user))
