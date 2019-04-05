@@ -14,6 +14,7 @@ run:
   path: ./le-opsman/tasks/set-crypto-material-cf.sh
 
 params:
-  OPSMAN_HOST:
-  OPSMAN_USER: 
-  OPSMAN_PASSWORD: 
+  CREDHUB_SERVER: 
+  CREDHUB_CA_CERT:
+  CREDHUB_CLIEN:
+  CREDHUB_SECRET:

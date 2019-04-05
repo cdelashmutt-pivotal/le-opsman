@@ -39,6 +39,7 @@ jobs:
   - task: upload-material
     file: le-opsman/tasks/upload-material-cf.yml
     params:
-      OPSMAN_HOST: ((opsman-host))
-      OPSMAN_USER: ((opsman-user))
-      OPSMAN_PASSWORD: ((opsman-password))
+      CREDHUB_SERVER: ((credhub_server))
+      CREDHUB_CA_CERT: ((credhub_ca_cert))
+      CREDHUB_CLIEN: ((credhub_client))
+      CREDHUB_SECRET: ((credhun_secret))
