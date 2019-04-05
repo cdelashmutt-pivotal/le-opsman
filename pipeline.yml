@@ -42,4 +42,4 @@ jobs:
       CREDHUB_SERVER: ((credhub_server))
       CREDHUB_CA_CERT: ((credhub_ca_cert))
       CREDHUB_CLIEN: ((credhub_client))
-      CREDHUB_SECRET: ((credhun_secret))
+      CREDHUB_SECRET: ((credhub_secret))
