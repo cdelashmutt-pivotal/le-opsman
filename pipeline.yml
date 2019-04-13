@@ -20,6 +20,7 @@ jobs:
     params:
       GD_Key: ((gd-key))
       GD_Secret: ((gd-secret))
+      HOSTNAMES: grogscave.net opsman.cf.grogscave.net
   - task: upload-material
     file: le-opsman/tasks/upload-material.yml
     params:
@@ -36,10 +37,31 @@ jobs:
     params:
       GD_Key: ((gd-key))
       GD_Secret: ((gd-secret))
+      HOSTNAMES: cf.grogscave.net *.cf.grogscave.net *.uaa.cf.grogscave.net *.login.cf.grogscave.net
   - task: upload-material
-    file: le-opsman/tasks/upload-material-cf.yml
+    file: le-opsman/tasks/upload-material-credhub.yml
     params:
       CREDHUB_SERVER: ((credhub_server))
       CREDHUB_CA_CERT: ((credhub_ca_cert))
-      CREDHUB_CLIEN: ((credhub_client))
+      CREDHUB_CLIENT: ((credhub_client))
       CREDHUB_SECRET: ((credhub_secret))
+      KEY: /concourse/main/properties_networking_poe_ssl_certs_0_certificate
+- name: set-concourse-cert
+  plan:
+  - get: 1w
+    trigger: true
+  - get: le-opsman
+  - task: retrieve-concourse-certs
+    file: le-opsman/tasks/le-retrieve.yml
+    params:
+      GD_Key: ((gd-key))
+      GD_Secret: ((gd-secret))
+      HOSTNAMES: concourse.cf.grogscave.net
+  - task: upload-material
+    file: le-opsman/tasks/upload-material-credhub.yml
+    params:
+      CREDHUB_SERVER: ((credhub_server))
+      CREDHUB_CA_CERT: ((credhub_ca_cert))
+      CREDHUB_CLIENT: ((credhub_client))
+      CREDHUB_SECRET: ((credhub_secret))
+      KEY: /bosh-control-plane/concourse/atc_tls

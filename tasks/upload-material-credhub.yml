@@ -11,10 +11,11 @@ inputs:
 - name: le-opsman
 
 run:
-  path: ./le-opsman/tasks/set-crypto-material-cf.sh
+  path: ./le-opsman/tasks/upload-material-credhub.sh
 
 params:
   CREDHUB_SERVER: 
   CREDHUB_CA_CERT:
   CREDHUB_CLIENT:
   CREDHUB_SECRET:
+  KEY:
