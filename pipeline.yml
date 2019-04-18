@@ -22,6 +22,7 @@ jobs:
       GD_Secret: ((gd-secret))
       HOSTNAMES: grogscave.net opsman.cf.grogscave.net
   - task: upload-material
+    attempts: 5
     file: le-opsman/tasks/upload-material.yml
     params:
       OPSMAN_HOST: ((opsman-host))
@@ -40,6 +41,7 @@ jobs:
       HOSTNAMES: cf.grogscave.net *.cf.grogscave.net *.uaa.cf.grogscave.net *.login.cf.grogscave.net
   - task: upload-material
     file: le-opsman/tasks/upload-material-credhub.yml
+    attempts: 5
     params:
       CREDHUB_SERVER: ((credhub_server))
       CREDHUB_CA_CERT: ((credhub_ca_cert))
@@ -58,6 +60,7 @@ jobs:
       GD_Secret: ((gd-secret))
       HOSTNAMES: concourse.cf.grogscave.net
   - task: upload-material
+    attempts: 5
     file: le-opsman/tasks/upload-material-credhub.yml
     params:
       CREDHUB_SERVER: ((credhub_server))
