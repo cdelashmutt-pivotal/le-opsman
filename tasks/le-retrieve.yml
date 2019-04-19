@@ -20,3 +20,6 @@ params:
   GD_Key: 
   GD_Secret: 
   HOSTNAMES: 
+
+caches:
+- path: /acme.sh

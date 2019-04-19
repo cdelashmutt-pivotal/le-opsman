@@ -28,6 +28,7 @@ jobs:
       OPSMAN_HOST: ((opsman-host))
       OPSMAN_USER: ((opsman-user))
       OPSMAN_PASSWORD: ((opsman-password))
+
 - name: set-cf-haproxy-cert
   plan:
   - get: 1w
@@ -48,6 +49,7 @@ jobs:
       CREDHUB_CLIENT: ((credhub_client))
       CREDHUB_SECRET: ((credhub_secret))
       KEY: /concourse/main/properties_networking_poe_ssl_certs_0_certificate
+
 - name: set-concourse-cert
   plan:
   - get: 1w
